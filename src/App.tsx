@@ -1,16 +1,49 @@
-import React from "react";
+import React, { ReactElement, ReactNode } from "react";
 
 // conventional props
-function Heading({title}: {title: string}) {
+const Heading = ({ title }: { title: string }) => {
+  return <h1>{title}</h1>;
+};
+
+const HeadingWithContent = ({
+  children,
+}: {
+  children: ReactNode;
+}): ReactElement | null => {
+  return <h1>{children}</h1>;
+};
+
+// defaultProps
+const defaultContainerProps = {
+  heading: <strong>Strong Heading</strong>,
+};
+
+type ContainerProps = { children: ReactNode } & typeof defaultContainerProps;
+
+const Container = ({
+  heading,
+  children,
+}: ContainerProps): ReactElement | null => {
   return (
-    <h1>{title}</h1>
-  )
-}
+    <div>
+      <h1>{heading}</h1>
+      {children}
+    </div>
+  );
+};
+
+Container.defaultProps = defaultContainerProps;
 
 function App() {
-  return <div>
-    <Heading title={2}/>
-  </div>
+  return (
+    <>
+      <Heading title="Title as string" />
+      <HeadingWithContent>
+        <i>Title as ReactNode</i>
+      </HeadingWithContent>
+      <Container>Hi!</Container>
+    </>
+  );
 }
 
 export default App;
