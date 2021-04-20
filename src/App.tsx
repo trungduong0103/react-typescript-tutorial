@@ -1,8 +1,16 @@
 import React from "react";
-import Home from "./pages/Home";
+
+// conventional props
+function Heading({title}: {title: string}) {
+  return (
+    <h1>{title}</h1>
+  )
+}
 
 function App() {
-  return <Home />;
+  return <div>
+    <Heading title={2}/>
+  </div>
 }
 
 export default App;
