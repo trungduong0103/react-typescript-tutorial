@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode, useState } from "react";
 
 // conventional props
 const Heading = ({ title }: { title: string }) => {
@@ -13,7 +13,7 @@ const HeadingWithContent = ({
   return <h1>{children}</h1>;
 };
 
-// defaultProps
+// default props
 const defaultContainerProps = {
   heading: <strong>Strong Heading</strong>,
 };
@@ -34,6 +34,26 @@ const Container = ({
 
 Container.defaultProps = defaultContainerProps;
 
+// functional props
+type textWithNumberProps = {
+  children: (num: number) => ReactNode;
+  header?: (num: number) => ReactNode;
+};
+const TextWithNumber = ({ header, children }: textWithNumberProps) => {
+  const [state, setState] = useState<number>(1);
+  return (
+    <>
+      {header && <h2>{header(state)}</h2>}
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        {children(state)}
+        <div style={{ marginLeft: "10px" }}>
+          <button onClick={() => setState(state + 1)}>Increment</button>
+        </div>
+      </div>
+    </>
+  );
+};
+
 function App() {
   return (
     <>
@@ -41,7 +61,11 @@ function App() {
       <HeadingWithContent>
         <i>Title as ReactNode</i>
       </HeadingWithContent>
-      <Container>Hi!</Container>
+      <Container>Container with strong heading!</Container>
+      <br />
+      <TextWithNumber header={(num) => <div>Optional header number is {num}</div>}>
+        {(num) => <div>Today's number is {num}</div>}
+      </TextWithNumber>
     </>
   );
 }
