@@ -54,6 +54,23 @@ const TextWithNumber = ({ header, children }: textWithNumberProps) => {
   );
 };
 
+// list
+function List<ListItem>({
+  items,
+  render,
+}: {
+  items: ListItem[];
+  render: (item: ListItem) => ReactNode;
+}) {
+  return (
+    <ul>
+      {items.map((item, key) => (
+        <li key={key}>{render(item)}</li>
+      ))}
+    </ul>
+  );
+}
+
 function App() {
   return (
     <>
@@ -63,9 +80,12 @@ function App() {
       </HeadingWithContent>
       <Container>Container with strong heading!</Container>
       <br />
-      <TextWithNumber header={(num) => <div>Optional header number is {num}</div>}>
+      <TextWithNumber
+        header={(num) => <div>Optional header number is {num}</div>}
+      >
         {(num) => <div>Today's number is {num}</div>}
       </TextWithNumber>
+      <List items={["Trung", "Tram", 1]} render={(item) => <div>{item}</div>} />
     </>
   );
 }
