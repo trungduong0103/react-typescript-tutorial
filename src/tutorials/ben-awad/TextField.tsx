@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 interface Person {
   firstname: string;
@@ -28,13 +28,16 @@ const TextField: React.FunctionComponent<TextFieldProps> = () => {
 
   const [object, setObject] = useState<TextNode>();
 
-  setObject(undefined);
-  setObject({ text: "Yo!" });
+  // setObject(undefined);
+  // setObject({ text: "Yo!" });
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
 
   return (
-    <>
-      <input />
-    </>
+    <div ref={divRef}>
+      <input ref={inputRef} />
+    </div>
   );
 };
 
