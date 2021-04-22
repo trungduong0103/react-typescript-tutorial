@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface Person {
   firstname: string;
   lastname: string;
@@ -12,7 +14,23 @@ interface TextFieldProps {
   person: Person;
 }
 
-const TextField: React.FunctionComponent<TextFieldProps> = ({}) => {
+const TextField: React.FunctionComponent<TextFieldProps> = () => {
+  interface TextNode {
+    text: string;
+  }
+
+  const [count, setCount] = useState<number | string | undefined | null>(5);
+
+  // setCount("Hello");
+  // setCount(10);
+  // setCount(undefined);
+  // setCount(null);
+
+  const [object, setObject] = useState<TextNode>();
+
+  setObject(undefined);
+  setObject({ text: "Yo!" });
+
   return (
     <>
       <input />
