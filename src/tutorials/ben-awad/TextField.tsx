@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 interface Person {
   firstname: string;
@@ -12,9 +12,12 @@ interface TextFieldProps {
   i?: number;
   fn?: (bob: string) => void;
   person: Person;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TextField: React.FunctionComponent<TextFieldProps> = () => {
+const TextField: React.FunctionComponent<TextFieldProps> = ({
+  handleChange,
+}) => {
   interface TextNode {
     text: string;
   }
@@ -36,7 +39,7 @@ const TextField: React.FunctionComponent<TextFieldProps> = () => {
 
   return (
     <div ref={divRef}>
-      <input ref={inputRef} />
+      <input ref={inputRef} onChange={handleChange} />
     </div>
   );
 };
